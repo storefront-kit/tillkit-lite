@@ -4,6 +4,8 @@ A free, self-hosted online store you own outright: products, cart, accounts, Str
 
 [Live demo](https://demo.tillkit.shop) · [Tillkit Full](https://tillkit.shop) · support@tillkit.shop
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/tillkit-lite?referralCode=yp1cJc)
+
 ## Quick start (on your computer)
 
 You need [Node.js](https://nodejs.org) 20 or newer.
@@ -20,6 +22,10 @@ Try the dark theme: `THEME=midnight npm start`. Add a color preset: `THEME=clean
 Run the checks: `npm test`.
 
 ## Put it online (Railway)
+
+**One click:** use the Deploy on Railway button above. It creates the store and its Postgres database and asks for your admin email and password; add your Stripe keys any time after. Then fork this repository and connect your fork in the service settings so your own changes deploy.
+
+**Or by hand:**
 
 1. Fork or copy this repository to your own GitHub account.
 2. In [Railway](https://railway.com?referralCode=yp1cJc) (our referral link; it costs you nothing extra), create a project from your repository and add a Postgres database to it.
