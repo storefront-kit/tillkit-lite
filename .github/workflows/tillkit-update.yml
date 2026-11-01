@@ -1,0 +1,31 @@
+# Checks every Monday for a new Tillkit release and opens a pull request with the changes.
+# Nothing changes in your store until you review and merge the pull request.
+# Setup (once): GitHub → your repository → Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests". Tillkit Full also needs a
+# TILLKIT_GITHUB_TOKEN secret; see "Updating" in README.md.
+name: Tillkit updates
+
+on:
+  schedule:
+    - cron: '17 15 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  update:
+    # Tillkit's own repositories don't update themselves.
+    if: ${{ !contains(fromJSON('["storefront-kit/storefront-kit-source","storefront-kit/storefront-kit","storefront-kit/tillkit-lite","storefront-kit/payments-pack","sheddershredder-lang/storefront-kit-demo"]'), github.repository) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Look for a new Tillkit release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UPSTREAM_TOKEN: ${{ secrets.TILLKIT_GITHUB_TOKEN }}
+        run: bash .github/tillkit-update.sh

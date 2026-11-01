@@ -73,6 +73,16 @@ Railway's Hobby plan is $5 a month and includes $5 of usage, which covers a smal
 
 [Get Tillkit Full](https://tillkit.shop/#pricing)
 
+## Updating
+
+Your copy of the code is yours, so nothing changes in your store unless you choose to update.
+
+- **You'll be told.** Once a day the store checks tillkit.shop for a new version (it sends nothing about your store) and shows a notice at the top of the admin when one is out. Turn this off with the Railway variable `UPDATE_CHECK=off`.
+- **Weekly update pull request.** If your store runs from your own GitHub repository (a fork or copy of this one), a GitHub Action in it (`.github/workflows/tillkit-update.yml`) checks every Monday for a new release and opens a pull request with exactly what changed. Your own edits stay. Review it, check the tests pass, and merge; Railway redeploys your store. If a change overlaps with your own edits, it opens an issue with a link to the changes instead.
+  - One-time setup: in your repository on GitHub, **Settings → Actions → General**, tick **Allow GitHub Actions to create and approve pull requests**, and save.
+- **Stripe changes:** the store pins its Stripe API version, so changes Stripe makes don't affect a running store. Moving to a newer version comes as a normal Tillkit update.
+- **Sales tax rules:** with Stripe Tax, Stripe keeps rates current for you. Rates in your own rate table don't update themselves; the admin reminds you of that on Settings.
+
 ## License
 
 Free to use for stores you own or operate. Keep the footer credit, and don't resell or republish the code as a template. The full terms are in [LICENSE.md](LICENSE.md).

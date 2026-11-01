@@ -395,10 +395,14 @@ const ADMIN_TABS = [
   { key: 'settings', href: '/admin/settings', label: 'Settings', order: 90 },
 ];
 function registerAdminTab(tab) { if (!ADMIN_TABS.some((t) => t.key === tab.key)) ADMIN_TABS.push(tab); }
+// Notices shown at the top of admin pages (see src/routes/notices.js). Each returns HTML or ''.
+const ADMIN_NOTICES = [];
+function registerAdminNotice(fn) { ADMIN_NOTICES.push(fn); }
+const adminNotices = (active) => ADMIN_NOTICES.map((fn) => { try { return fn(active) || ''; } catch { return ''; } }).join('');
 function adminShell(active, title, inner) {
   const tab = (t) => `<a href="${t.href}"${active === t.key ? ' aria-current="page"' : ''}>${esc(t.label)}</a>`;
   const tabs = [...ADMIN_TABS].sort((a, b) => a.order - b.order).map(tab).join('');
-  return layout({ title, noindex: true, active: 'admin', body: `<section class="wrap section admin"><nav class="admin-nav" aria-label="Admin">${tabs}<a href="/" class="muted">View store ↗</a></nav>${inner}</section>` });
+  return layout({ title, noindex: true, active: 'admin', body: `<section class="wrap section admin"><nav class="admin-nav" aria-label="Admin">${tabs}<a href="/" class="muted">View store ↗</a></nav>${adminNotices(active)}${inner}</section>` });
 }
 
 function adminProducts({ products, msg = '' }) {
@@ -574,4 +578,4 @@ const VIEWS = { home, shop, product, cart, checkout, order, about, login, regist
 // For feature modules (src/routes/*): build a page with the signed-in user and CSRF token set.
 //   views.page(ctx, () => views.adminShell('finance', 'Finance', html))
 function page(ctx, fn) { CTX = ctx || { user: null, csrf: '' }; try { return fn(); } finally { CTX = { user: null, csrf: '' }; } }
-module.exports = { render, page, esc, money, STATUS, statusLabel, layout, adminShell, registerAdminTab, registerStyle, csrfField, errorList, field, prose, img, orderTable, addressBlock, themeCss, fontsHref };
+module.exports = { render, page, esc, money, STATUS, statusLabel, layout, adminShell, registerAdminTab, registerAdminNotice, registerStyle, csrfField, errorList, field, prose, img, orderTable, addressBlock, themeCss, fontsHref };
