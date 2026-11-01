@@ -23,7 +23,7 @@ Run the checks: `npm test`.
 
 ## Put it online (Railway)
 
-**One click:** use the Deploy on Railway button above. It creates the store and its Postgres database and asks for your admin email and password; add your Stripe keys any time after. Then fork this repository and connect your fork in the service settings so your own changes deploy.
+**One click:** use the Deploy on Railway button above. It creates the store and its Postgres database and asks for your admin email and password; add your Stripe keys any time after. To change the code later, fork this repository and point the service's Source setting at your fork.
 
 **Or by hand:**
 
