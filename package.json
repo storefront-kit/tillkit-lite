@@ -1,0 +1,19 @@
+{
+  "name": "tillkit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A fast, self-hosted online store: products, cart, accounts, Stripe checkout, admin. One dependency.",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node tests/smoke.js && node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}
